@@ -37,8 +37,10 @@ final class SpaceNewsCollectionViewCell: UICollectionViewCell {
         let spaceNewsCell = SpaceNewsCell(viewModel: viewModel)        
         let hostingController = UIHostingController(rootView: spaceNewsCell)
         self.hostingController = hostingController
+        self.hostingController?.view.backgroundColor = .clear
         contentView.addSubview(hostingController.view)
         contentView.backgroundColor = .clear
+        self.backgroundColor = .clear
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             hostingController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

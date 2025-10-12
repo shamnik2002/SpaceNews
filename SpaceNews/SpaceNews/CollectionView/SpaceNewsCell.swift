@@ -58,9 +58,9 @@ struct SpaceNewsCell: View {
         }
         .frame(maxWidth: .infinity)   // makes HStack expand horizontally
         .padding(15)
-        .background(Color.white)
+        .background(Color(.systemBackground))
         .cornerRadius(10)
-        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+        .shadow(color:Color.primary.opacity(0.5), radius: 4, x: 0, y: 2)
     }
 }
 
