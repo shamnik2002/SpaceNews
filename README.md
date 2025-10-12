@@ -14,6 +14,8 @@
 - Tapping on heart here will instantly remove the item from the list and appropriately reflect on the home tab.
 
 ## TODO
+- Date formatting to show relative date
+- Author/publisher info
 - Currently the items are only saved in memory, need to add presistent store for saved items
 - Some bugs around making items as saved
 - Search results tab, to allow users to search news with query string
