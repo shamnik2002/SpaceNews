@@ -39,6 +39,7 @@
          }]}
  */
 import Foundation
+fileprivate let formatter = ISO8601DateFormatter()
 
 struct SpaceNewsResponse: Codable {
     let count: Int?
@@ -59,7 +60,11 @@ struct SpaceNewsModel: Codable, Hashable {
     let image_url: String?
     let news_site: String?
     let summary: String?
-//        let published_at: Date?
+    let published_at: String?
+    var publishedDate: Date? {
+        guard let published_at else { return nil }
+        return formatter.date(from: published_at)
+    }
     
 //    struct Author: Codable {
 //        let name: String?

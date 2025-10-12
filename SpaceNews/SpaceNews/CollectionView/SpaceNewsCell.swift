@@ -20,11 +20,10 @@ struct SpaceNewsCell: View {
     var imageViewModel = ImageViewModel(url: nil)
     
     var date: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .none
-        return dateFormatter.string(from: viewModel.date)
+        guard let pubDate = viewModel.date else { return "" }
+        return pubDate.shortRelativeDate()
     }
+    
     var body: some View {
         HStack(alignment: .top, spacing: 10){
             VStack(alignment: .leading) {
@@ -77,8 +76,8 @@ final class SpaceNewsCellViewModel: ObservableObject {
         guard let urlString = newsItem.image_url else { return nil }
         return URL(string: urlString)
     }
-    var date: Date {
-        return Date()
+    var date: Date? {
+        return newsItem.publishedDate
     }
     
     var isSaved: Bool
