@@ -1,4 +1,7 @@
 # App Overview
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2025-10-12 at 01 48 58" src="https://github.com/user-attachments/assets/98f259cf-12f6-4344-8af4-550cd8e04b06" />
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2025-10-12 at 01 49 02" src="https://github.com/user-attachments/assets/862fd4ec-345d-4175-ba6a-44044a810fc0" />
+
 ### Home Tab
 - Shows the latest space news (title, summary, image, date, whether user saved it)
 - Pull to refresh to refresh the list
