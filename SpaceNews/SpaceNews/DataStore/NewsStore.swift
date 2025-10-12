@@ -20,7 +20,7 @@ struct CachePolicy: CachePolicyProtocol {
 
 actor NewsCache {
 
-    var news: [String: [SpaceNewsModel]]
+    private var news: [String: [SpaceNewsModel]]
     private var cachePolicy: CachePolicyProtocol
     
     init(cachePolicy: CachePolicyProtocol) {

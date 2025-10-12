@@ -56,7 +56,6 @@ struct DeleteSavedNewsItem: SavedNewsAction {
 }
 
 struct SaveSavedNewsToStore: SavedNewsAction {
-    let news: [SpaceNewsModel]
     let category: NewsCategory = .saved
 }
 

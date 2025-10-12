@@ -12,7 +12,7 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            SpaceNewsCollectionViewControllerRepresentable()
+            SpaceNewsCollectionViewControllerRepresentable(appStore: viewModel.appStore)
                 .edgesIgnoringSafeArea(.all)
             .navigationTitle("Home")
         }
@@ -23,8 +23,15 @@ struct HomeView: View {
 }
 
 struct SpaceNewsCollectionViewControllerRepresentable: UIViewControllerRepresentable {
+    
+    private let appStore: AppStore
+    
+    init(appStore: AppStore) {
+        self.appStore = appStore
+    }
+    
     func makeUIViewController(context: Context) -> SpaceNewsCollectionViewController {
-        let viewModel = SpaceNewsControllerViewModel(appStore: AppStore.shared, category: .home)
+        let viewModel = SpaceNewsControllerViewModel(appStore: appStore, category: .home)
         let vc = SpaceNewsCollectionViewController(viewModel: viewModel)
         return vc
     }

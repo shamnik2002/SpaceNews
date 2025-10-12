@@ -14,7 +14,7 @@ struct SavedView: View {
     
     var body: some View {
         NavigationStack {
-            SavedCollectionViewControllerRepresentable()
+            SavedCollectionViewControllerRepresentable(appStore: viewModel.appStore)
                 .edgesIgnoringSafeArea(.all)
             .navigationTitle("Saved")
         }
@@ -25,8 +25,12 @@ struct SavedView: View {
 }
 
 struct SavedCollectionViewControllerRepresentable: UIViewControllerRepresentable {
+    private let appStore: AppStore
+    init(appStore: AppStore) {
+        self.appStore = appStore
+    }
     func makeUIViewController(context: Context) -> SpaceNewsCollectionViewController {
-        let viewModel = SavedNewsControllerViewModel(appStore: AppStore.shared, category: .saved)
+        let viewModel = SavedNewsControllerViewModel(appStore: appStore, category: .saved)
         let vc = SpaceNewsCollectionViewController(viewModel: viewModel)
         return vc
     }

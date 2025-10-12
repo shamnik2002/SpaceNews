@@ -54,7 +54,7 @@ final class AppMiddleware {
                 deleteSavedNewsItem(action.newsItem, category: action.category)
                 break
             case let action as SaveSavedNewsToStore:
-                saveSavedNewsToStore(action.news, category: action.category)
+                saveSavedNewsToStore(category: action.category)
                 break
             default:
                 break
@@ -98,8 +98,10 @@ final class AppMiddleware {
         }
     }
     
-    private func saveSavedNewsToStore(_ news: [SpaceNewsModel], category: NewsCategory) {
+    private func saveSavedNewsToStore(category: NewsCategory) {
         Task {[weak self] in
+            guard let news = await self?.getFromCache(category: category.rawValue) else {return}
+            print("saving to store") 
             try? await self?.newsStore.saveToStore(news: news, category:category.rawValue)
         }
     }
@@ -139,7 +141,7 @@ final class AppMiddleware {
         guard let newsItems = news, !newsItems.isEmpty, attemptedToFetchFromStore else {
             fetchedFromStore[category] = true
             news = await getFromStore(category: category)
-            if let news {
+            if let news, !news.isEmpty {
                 await newsCache.saveNews(news, category: category)
                 return news
             }

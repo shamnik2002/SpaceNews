@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var viewModel: ContentViewModel
+    @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
         TabView {
@@ -23,9 +24,18 @@ struct ContentView: View {
                     Label("Saved", systemImage: "heart.fill")
                 }
         }.accentColor(Color(.systemBlue))
+            .onChange(of: scenePhase) { oldValue, newValue in
+                switch newValue {
+                    case .background:
+                        viewModel.saveSavedNewsToDisk()
+                        break
+                    default:
+                        break
+                }
+            }
     }
 }
 
-#Preview {
-    ContentView(viewModel: ContentViewModel(appStore: AppStore()))
-}
+//#Preview {
+//    ContentView(viewModel: ContentViewModel(appStore: AppStore()))
+//}
