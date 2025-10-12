@@ -112,12 +112,7 @@ final class AppMiddleware {
             .flatMap{ data in
                 return parser.parse(data: data, type: SpaceNewsResponse.self).eraseToAnyPublisher()
             }.sink { completion in
-                switch completion {
-                case .finished:
-//                    print("finished")
-                case .failure(let error):
-//                    print(error.localizedDescription)
-                }
+               
             } receiveValue: {[weak self] response in
                 let action = SetSpaceNews(news: response, category: category)
                 self?.dispatch(action)
