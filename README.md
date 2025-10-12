@@ -12,6 +12,7 @@
 
 ## TODO
 - Currently the items are only saved in memory, need to add presistent store for saved items
+- Some bugs around making items as saved
 - Search results tab, to allow users to search news with query string
 - Look into what sorting the API provides
 - Look into diffable data source to improve list updates
