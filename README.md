@@ -16,6 +16,7 @@
 ## TODO
 - Date formatting to show relative date
 - Author/publisher info
+- dark mode support
 - Currently the items are only saved in memory, need to add presistent store for saved items
 - Some bugs around making items as saved
 - Search results tab, to allow users to search news with query string
