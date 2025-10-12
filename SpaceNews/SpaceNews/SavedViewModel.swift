@@ -24,7 +24,7 @@ final class SavedViewModel: ObservableObject {
     }
     
     func fetchNews() {
-        let getNewsAction = GetSpaceNews(category: NewsCategory.saved)
+        let getNewsAction = GetSavedNews()
         self.appStore.dispatcher.dispatch(getNewsAction)
     }
 }
