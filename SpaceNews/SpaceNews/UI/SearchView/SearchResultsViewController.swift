@@ -72,5 +72,7 @@ extension SearchResultsViewController: UICollectionViewDataSource {
 }
 
 extension SearchResultsViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.showDetailVC(news: searchResults[indexPath.row], presentingVC: self)
+    }
 }
