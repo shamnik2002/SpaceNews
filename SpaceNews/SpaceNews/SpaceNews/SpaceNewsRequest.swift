@@ -24,8 +24,11 @@ struct SpaceNewsRequest: RequestProtocol {
     
     var body: Data?
     
-    init(limit: Int = 5, offset: Int = 0) {
+    init(limit: Int = 5, offset: Int = 0, searchQuery: String? = nil) {
         self.queryItems = ["limit": "\(limit)", "offset": "\(offset)"]
+        if let searchQuery, searchQuery.isEmpty == false {
+            queryItems?["search"] = searchQuery
+        }
     }
     
     func buildRequest() throws -> URLRequest {

@@ -23,6 +23,10 @@ struct ContentView: View {
                 .tabItem {
                     Label("Saved", systemImage: "heart.fill")
                 }
+            SearchView(viewModel: viewModel.searchViewModel)
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
         }.accentColor(Color(.systemBlue))
             .onChange(of: scenePhase) { oldValue, newValue in
                 switch newValue {

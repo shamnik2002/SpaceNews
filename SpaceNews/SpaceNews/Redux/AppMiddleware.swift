@@ -15,6 +15,7 @@ final class AppMiddleware {
     private let newsStore: NewsStore
     private let newsCache: NewsCache
     private var cancellables: Set<AnyCancellable> = []
+    private var searchResultsCancellable:AnyCancellable?
     
     private var fetchedFromStore: [String: Bool] = [:]
     
@@ -38,9 +39,27 @@ final class AppMiddleware {
         case let action as SavedNewsAction:
             handleSavedNewsAction(action)
             break
+        case let action as SearchNews:
+            handleSearchNewsAction(action)
+            break
         default:
             break
         }
+    }
+    
+    private func handleSearchNewsAction(_ action: SearchNews) {
+        let request = SpaceNewsRequest(limit: action.limit, offset: action.offset, searchQuery: action.query)
+        let parser = parser
+        searchResultsCancellable?.cancel()
+        searchResultsCancellable = networkService.fetchDataWithPublisher(request: request)
+                                    .flatMap{ data in
+                                        return parser.parse(data: data, type: SpaceNewsResponse.self).eraseToAnyPublisher()
+                                    }.sink { completion in
+                                       
+                                    } receiveValue: {[weak self] response in
+                                        let action = SetSearchNews(news: response)
+                                        self?.dispatch(action)
+                                    }
     }
     
     private func handleSavedNewsAction( _ action: SavedNewsAction) {
@@ -99,6 +118,7 @@ final class AppMiddleware {
     }
     
     private func saveSavedNewsToStore(category: NewsCategory) {
+        //TODO: check if data is changed and only then persist
         Task {[weak self] in
             guard let news = await self?.getFromCache(category: category.rawValue) else {return}
             print("saving to store") 

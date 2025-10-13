@@ -13,11 +13,13 @@ final class ContentViewModel: ObservableObject {
     private let appStore: AppStore
     let homeViewModel: HomeViewModel
     let savedViewModel: SavedViewModel
+    let searchViewModel: SearchViewModel
     
     init(appStore: AppStore) {
         self.appStore = appStore
         homeViewModel = HomeViewModel(appStore: appStore)
         savedViewModel = SavedViewModel(appStore: appStore)
+        searchViewModel = SearchViewModel(appStore: appStore)
     }
     
     func saveSavedNewsToDisk() {

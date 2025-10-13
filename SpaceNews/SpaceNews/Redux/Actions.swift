@@ -12,6 +12,10 @@ protocol ReduxAction {}
 
 protocol ReduxMutatingAction: ReduxAction {}
 
+
+protocol NewsAction: ReduxAction {}
+protocol SetNewsAction: ReduxMutatingAction {}
+
 // Home fetch/set news
 struct GetSpaceNews: NewsAction {
     let limit: Int
@@ -35,10 +39,6 @@ struct SetSavedNews: SetNewsAction {
     let news: SpaceNewsResponse
     let category: NewsCategory = .saved
 }
-
-protocol NewsAction: ReduxAction {}
-protocol SetNewsAction: ReduxMutatingAction {}
-
 protocol SavedNewsAction: NewsAction {}
 
 struct GetSavedNews: SavedNewsAction {
@@ -57,6 +57,23 @@ struct DeleteSavedNewsItem: SavedNewsAction {
 
 struct SaveSavedNewsToStore: SavedNewsAction {
     let category: NewsCategory = .saved
+}
+
+// Search actions
+struct SearchNews: NewsAction {
+    let query: String
+    let limit: Int
+    let offset: Int
+    
+    init(query: String, limit: Int = 10, offset: Int = 0) {
+        self.query = query
+        self.limit = limit
+        self.offset = offset
+    }
+}
+
+struct SetSearchNews: SetNewsAction {
+    let news: SpaceNewsResponse
 }
 
 // Navigation actions

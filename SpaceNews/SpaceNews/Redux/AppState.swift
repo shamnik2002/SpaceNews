@@ -13,7 +13,8 @@ final class AppState {
     private let dispatch: Dispatch
     
     private(set) var spaceNewsResponsePublisher = PassthroughSubject<(NewsCategory, SpaceNewsResponse), Never>()
-    
+    private(set) var searchResultsPublisher = PassthroughSubject<SpaceNewsResponse, Never>()
+
     private var cancellables: Set<AnyCancellable> = []
     
     init(dispatch: @escaping Dispatch, listner: AnyPublisher<SetNewsAction?, Never>) {
@@ -32,6 +33,9 @@ final class AppState {
             break
         case let action as SetSavedNews:
             spaceNewsResponsePublisher.send((action.category, action.news))
+        case let action as SetSearchNews:
+            searchResultsPublisher.send(action.news)
+            break
         default:
             break
         }
