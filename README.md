@@ -1,6 +1,6 @@
 # App Overview
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2025-10-12 at 01 48 58" src="https://github.com/user-attachments/assets/98f259cf-12f6-4344-8af4-550cd8e04b06" />
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2025-10-12 at 01 49 02" src="https://github.com/user-attachments/assets/862fd4ec-345d-4175-ba6a-44044a810fc0" />
+![Simulator Screen Recording - iPhone 17 Pro - 2025-10-12 at 16 32 19](https://github.com/user-attachments/assets/15adf07d-9045-42d3-89d9-1e7fb5a52962)
+
 
 ### Home Tab
 - Shows the latest space news (title, summary, image, date, whether user saved it)
@@ -12,13 +12,10 @@
 ### Saved Tab
 - Saved tab shows all the news items user saved.
 - Tapping on heart here will instantly remove the item from the list and appropriately reflect on the home tab.
+- Data is persisted to disk when app goes in the background
 
 ## TODO
-- Date formatting to show relative date
 - Author/publisher info
-- dark mode support
-- Currently the items are only saved in memory, need to add presistent store for saved items
-- Some bugs around making items as saved
 - Search results tab, to allow users to search news with query string
 - Look into what sorting the API provides
 - Look into diffable data source to improve list updates
