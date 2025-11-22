@@ -39,9 +39,9 @@ jobs:
             # import export options plist
             echo -n "$EXPORT_OPTS" | base64 --decode -o $EXPORT_OPTS_PATH
 
-            if security find-keychain "$KEYCHAIN_PATH" > /dev/null 2>&1; then
+            if security find-keychain $KEYCHAIN_PATH > /dev/null 2>&1; then
                     echo "Keychain found. Deleting..."
-                    security delete-keychain "$KEYCHAIN_PATH"
+                    security delete-keychain $KEYCHAIN_PATH
                     echo "Keychain deleted."
             else
                     echo "Keychain not found. No action needed."
