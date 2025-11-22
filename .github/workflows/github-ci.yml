@@ -29,29 +29,41 @@ jobs:
             KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
             EXPORT_OPTS_PATH=$RUNNER_TEMP/ExportOptions.plist
 
+            echo "create variables done"
+            
             # import certificate and provisioning profile from secrets
             echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
             echo -n "${{ secrets.PROVISIONING_PROFILE_BASE64 }}" | base64 --decode -o $PP_PATH
-          
+
+            echo "import cert and provisioning profiles done"
+            
             # import export options plist
             echo -n "$EXPORT_OPTS" | base64 --decode -o $EXPORT_OPTS_PATH
-           
+
+            echo "import export options plist done"
+            
             # create keychain
             security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+            echo "create keychain done"
             security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+            echo "set keychain done"
             security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
+            echo "unlock keychain done"
+            
             # import certificates into keychain
             security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
             security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
             security list-keychain -d user -s $KEYCHAIN_PATH
 
+            echo "import certificates into keychain done"
+            
             # import provisioning profile
             mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
             cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
             security find-identity -p codesigning -v
             security cms -D -i ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
-
+            echo "import provisioning profile done"
+            
       - name: Build and Test
         run: |
           xcodebuild clean test -project SpaceNews.xcodeproj -scheme "SpaceNews" -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 17'
