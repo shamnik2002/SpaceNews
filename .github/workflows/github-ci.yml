@@ -52,8 +52,11 @@ jobs:
             
             # import certificates into keychain
             security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+            echo "import cert and p12 password done"
             security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+            echo "set-key-partition-list done"
             security list-keychain -d user -s $KEYCHAIN_PATH
+            echo "list-keychain done"
 
             echo "import certificates into keychain done"
             
