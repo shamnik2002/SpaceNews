@@ -51,6 +51,12 @@ jobs:
             echo "unlock keychain done"
             
             # import certificates into keychain
+            ls -lh "$CERTIFICATE_PATH"
+            echo "certificate exists"
+            file "$CERTIFICATE_PATH"
+            echo "check file type"
+            openssl pkcs12 -info -in "$CERTIFICATE_PATH"
+            echo "Check PKCS#12 decoding using OpenSSL"
             security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
             echo "import cert and p12 password done"
             security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
