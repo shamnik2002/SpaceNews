@@ -38,7 +38,6 @@
 - passes immutable copies to viewModels
 - Handles any Set actions
 
-
 ## AppMiddleware
 - Responsible for making n/w calls to get news from BE, saving/retreiving news from cache and persistent store
 - Handle any actions that require accessing cache/store or making n/w calls
