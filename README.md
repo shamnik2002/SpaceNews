@@ -75,6 +75,6 @@
 - SwiftUI view for cells
 
 # Dependencies
-- SDWebImage for rendering images on news cells
+- SDWebImage for rendering images within news cells
 
 
