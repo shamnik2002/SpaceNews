@@ -11,6 +11,8 @@ jobs:
     name: Build and Test
     runs-on: macos-latest
 
+    environment: Dev
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
