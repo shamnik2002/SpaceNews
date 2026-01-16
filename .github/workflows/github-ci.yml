@@ -75,6 +75,15 @@ jobs:
             security cms -D -i ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
             echo "import provisioning profile done"
 
+      - name: Cache SPM Dependencies
+        uses: actions/cache@v4
+        id: spm-cache
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+      
       - name: List available simulators (optional, for debugging)
         run: xcrun simctl list devices available
         
