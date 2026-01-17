@@ -74,13 +74,14 @@ jobs:
             security find-identity -p codesigning -v
             security cms -D -i ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
             echo "import provisioning profile done"
-
+      
+      # save derived data to a predictable path
       - name: Cache SPM Dependencies
         uses: actions/cache@v4
         id: spm-cache
         with:
-          path: 
-            # save derived data to a predictable path
+          path: |
+            
             ${{ github.workspace }}/DerivedData/**/SourcePackages/checkouts            
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
