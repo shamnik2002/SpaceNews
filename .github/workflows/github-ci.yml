@@ -95,5 +95,5 @@ jobs:
             -project SpaceNews/SpaceNews.xcodeproj \
             -scheme "SpaceNews" \
             -configuration Debug \
-            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=18.0' \
             -derivedDataPath "$GITHUB_WORKSPACE/DerivedData"
