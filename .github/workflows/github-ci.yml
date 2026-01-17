@@ -98,5 +98,6 @@ jobs:
             -scheme "SpaceNews" \
             -configuration Debug \
             -destination 'platform=iOS Simulator,name=iPhone 17'  \
-            -skip-testing SpaceNewsUITests
+            -skip-testing SpaceNewsUITests \
+            -derivedDataPath $GITHUB_WORKSPACE/DerivedData
            
