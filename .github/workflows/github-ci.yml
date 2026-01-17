@@ -89,11 +89,13 @@ jobs:
      # - name: List available simulators (optional, for debugging)
        # run: xcrun simctl list devices available
         #'platform=iOS Simulator,name=iPhone 17,OS=18.0' \
+        # -derivedDataPath $GITHUB_WORKSPACE/DerivedData
+
       - name: Build and Test
         run: |
           xcodebuild clean test \
             -project SpaceNews/SpaceNews.xcodeproj \
             -scheme "SpaceNews" \
             -configuration Debug \
-            -destination 'generic/platform=iOS Simulator' \ 
-            -derivedDataPath $GITHUB_WORKSPACE/DerivedData
+            -destination 'generic/platform=iOS Simulator' 
+           
