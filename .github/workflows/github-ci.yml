@@ -86,8 +86,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
       
-      - name: List available simulators (optional, for debugging)
-        run: xcrun simctl list devices available
+     # - name: List available simulators (optional, for debugging)
+       # run: xcrun simctl list devices available
         
       - name: Build and Test
         run: |
@@ -96,4 +96,4 @@ jobs:
           -scheme "SpaceNews"
           -configuration Debug
           -destination 'platform=iOS Simulator,name=iPhone 17'
-          -derivedDataPath "$GITHUB_WORKSPACE/DerivedData"
+          # -derivedDataPath "$GITHUB_WORKSPACE/DerivedData"
