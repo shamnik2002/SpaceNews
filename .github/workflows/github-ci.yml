@@ -97,5 +97,5 @@ jobs:
             -project SpaceNews/SpaceNews.xcodeproj \
             -scheme "SpaceNews" \
             -configuration Debug \
-            -destination 'generic/platform=iOS Simulator' 
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=18.0'  
            
