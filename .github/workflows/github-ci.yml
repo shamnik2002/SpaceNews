@@ -90,15 +90,10 @@ jobs:
         run: xcrun simctl list devices available
         
       - name: Build and Test
-        env:
-          PROJECT_NAME: SpaceNews/SpaceNews.xcodeproj
-          SCHEME: "SpaceNews"
-          CONFIGURATION: Debug
-          DESTINATION: 'platform=iOS Simulator,name=iPhone 17'
         run: |
           xcodebuild clean test 
-          -project "$PROJECT_NAME"
-          -scheme "$SCHEME" 
-          -configuration "$CONFIGURATION" 
-          -destination "$DESTINATION"
+          -project SpaceNews/SpaceNews.xcodeproj
+          -scheme "SpaceNews"
+          -configuration Debug
+          -destination 'platform=iOS Simulator,name=iPhone 17'
           --derivedDataPath "$GITHUB_WORKSPACE/DerivedData"
