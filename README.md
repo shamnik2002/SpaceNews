@@ -1,7 +1,6 @@
 # Github Actions
-- 
 ** Triggers**
-
+- 
 # App Overview
 ![Simulator Screen Recording - iPhone 17 Pro - 2025-10-12 at 16 32 19](https://github.com/user-attachments/assets/15adf07d-9045-42d3-89d9-1e7fb5a52962)
 
