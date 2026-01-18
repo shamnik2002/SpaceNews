@@ -117,7 +117,7 @@ jobs:
             -configuration Release \
             -destination generic/platform=iOS  \
             -derivedDataPath $GITHUB_WORKSPACE/DerivedData \
-            -archivePath $GITHUB_WORKSPACE/archive
+            -archivePath $GITHUB_WORKSPACE/archive \
           | xcbeautify
            
       - name: Upload xcresult
