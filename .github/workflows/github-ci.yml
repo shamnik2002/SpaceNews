@@ -101,6 +101,6 @@ jobs:
             -configuration Debug \
             -destination 'platform=iOS Simulator,name=iPhone 17'  \
             -skip-testing SpaceNewsUITests \
-            -derivedDataPath $GITHUB_WORKSPACE/DerivedData
+            -derivedDataPath $GITHUB_WORKSPACE/DerivedData \
           | xcbeautify
            
