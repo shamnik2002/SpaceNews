@@ -86,7 +86,15 @@ jobs:
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
-      
+
+      - name: Upload xcresult
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcresult
+          path: |
+            ${{ github.workspace }}/DerivedData/Logs/Test/*.xcresult
+
      # - name: List available simulators (optional, for debugging)
        # run: xcrun simctl list devices available
         #'platform=iOS Simulator,name=iPhone 17,OS=18.0' \
