@@ -95,7 +95,7 @@ jobs:
       - name: Build and Test
         run: |
           set -euo pipefail 
-          xcodebuild clean test \ 
+          xcodebuild clean test \
             -project SpaceNews/SpaceNews.xcodeproj \
             -scheme "SpaceNews" \
             -configuration Debug \
