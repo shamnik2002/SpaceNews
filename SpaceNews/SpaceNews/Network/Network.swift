@@ -24,6 +24,7 @@ struct NetworkService: NetworkProtocol {
         guard let urlRequest = try? request.buildRequest() else {
             return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
         }
+        print
         return session.dataTaskPublisher(for: urlRequest)
                 .tryMap{ result in
                     guard let httpResponse = result.response as? HTTPURLResponse else {
