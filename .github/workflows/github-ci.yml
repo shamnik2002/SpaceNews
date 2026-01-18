@@ -94,6 +94,7 @@ jobs:
 
       - name: Build and Test
         run: |
+          set -euo pipefail # exit on error, fail on undefined var, fail on any pipe cmd fails 
           xcodebuild clean test \
             -project SpaceNews/SpaceNews.xcodeproj \
             -scheme "SpaceNews" \
