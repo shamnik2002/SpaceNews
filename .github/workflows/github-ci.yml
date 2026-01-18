@@ -85,15 +85,7 @@ jobs:
             ${{ github.workspace }}/DerivedData/**/SourcePackages/checkouts            
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-spm-
-
-      - name: Upload xcresult
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: xcresult
-          path: |
-            ${{ github.workspace }}/DerivedData/Logs/Test/*.xcresult
+            ${{ runner.os }}-spm-     
 
      # - name: List available simulators (optional, for debugging)
        # run: xcrun simctl list devices available
@@ -112,3 +104,10 @@ jobs:
             -derivedDataPath $GITHUB_WORKSPACE/DerivedData \
           | xcbeautify
            
+      - name: Upload xcresult
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcresult
+          path: |
+            ${{ github.workspace }}/DerivedData/Logs/Test/*.xcresult
