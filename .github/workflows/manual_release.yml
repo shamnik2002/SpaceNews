@@ -1,0 +1,147 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual workflow
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on: 
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Person to greet'
+        # Default value if no value is explicitly provided
+        default: 'World'
+        # Input has to be provided for the workflow to run
+        required: true
+        # The data type of the input
+        type: string
+
+jobs: 
+  build_and_archive:
+    runs-on: macos-26
+
+    environment: Prod
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26'
+          
+      - name: Install Certificates and Provisioning Profile
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}          
+          EXPORT_OPTS: ${{secrets.EXPORT_OPTIONS_PLIST_BASE64 }}
+          
+        run: |
+            # create variables
+            CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+            PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+            KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+            EXPORT_OPTS_PATH=$RUNNER_TEMP/ExportOptions.plist
+
+            echo "create variables done"
+            
+            # import certificate and provisioning profile from secrets
+            echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode > "$CERTIFICATE_PATH"
+            ls -lh "$CERTIFICATE_PATH"
+            echo "certificate exists"
+            file "$CERTIFICATE_PATH"
+            echo "check file type"
+            #openssl pkcs12 -info -in "$CERTIFICATE_PATH"
+            #echo "Check PKCS#12 decoding using OpenSSL"
+            echo -n "${{ secrets.PROVISIONING_PROFILE_BASE64 }}" | base64 --decode > "$PP_PATH"
+
+            echo "import cert and provisioning profiles done"
+            
+            # import export options plist
+            echo -n "$EXPORT_OPTS" | base64 --decode > "$EXPORT_OPTS_PATH"
+
+            echo "import export options plist done"
+            
+            # create keychain
+            security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+            echo "create keychain done"
+            security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+            echo "set keychain done"
+            security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+            echo "unlock keychain done"
+            
+            # import certificates into keychain            
+            security import "$CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+            echo "import cert and p12 password done"
+            security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+            echo "set-key-partition-list done"
+            security list-keychain -d user -s "$KEYCHAIN_PATH"
+            echo "list-keychain done"
+
+            echo "import certificates into keychain done"
+            
+            # import provisioning profile
+            mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+            cp "$PP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles
+            security find-identity -p codesigning -v
+            security cms -D -i ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
+            echo "import provisioning profile done"
+      
+      # save derived data to a predictable path
+      - name: Cache SPM Dependencies
+        uses: actions/cache@v4
+        id: spm-cache
+        with:
+          path: |
+            
+            ${{ github.workspace }}/DerivedData/**/SourcePackages/checkouts            
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-     
+
+     # - name: List available simulators (optional, for debugging)
+       # run: xcrun simctl list devices available
+        #'platform=iOS Simulator,name=iPhone 17,OS=18.0' \
+        # -derivedDataPath $GITHUB_WORKSPACE/DerivedData
+
+      - name: Build and Archive
+        run: |
+          set -euo pipefail 
+          xcodebuild clean archive \
+            -project SpaceNews/SpaceNews.xcodeproj \
+            -scheme "SpaceNews" \
+            -configuration Release \
+            -destination generic/platform=iOS  \
+            -derivedDataPath $GITHUB_WORKSPACE/DerivedData \
+            -archivePath $GITHUB_WORKSPACE/archive
+          | xcbeautify
+           
+      - name: Upload xcresult
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcresult
+          path: |
+            ${{ github.workspace }}/DerivedData/Logs/Test/*.xcresult
+
+      - name: Export ipa
+        run: |
+          EXPORT_OPTS_PATH=$RUNNER_TEMP/ExportOptions.plist
+          xcodebuild -exportArchive -archivePath $GITHUB_WORKSPACE/archive -exportOptionsPlist $EXPORT_OPTS_PATH -exportPath $GITHUB_WORKSPACE/build
+
+      - name: Upload application
+        id: upload_step
+        env:
+          API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_KEY }}
+          APPSTORE_KEY_ID: ${{ secrets.APP_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.ISSUER_ID }}
+        run: |
+          mkdir -p ./private_keys
+          echo -n "$API_KEY_BASE64" | base64 --decode > "./private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8
+          xcrun altool --validate-app -f $GITHUB_WORKSPACE/build/SpaceNews.ipa -t ios --apiKey ${{ secrets.APPSTORE_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
+          xcrun altool --upload-app -f $GITHUB_WORKSPACE/build/SpaceNews.ipa -t ios --apiKey ${{ secrets.APPSTORE_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
+
