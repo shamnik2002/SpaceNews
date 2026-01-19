@@ -129,8 +129,9 @@ jobs:
             ${{ github.workspace }}/DerivedData/Logs/Test/*.xcresult
 
       - name: Export ipa
-        run: |
+        run: |          
           EXPORT_OPTS_PATH=$RUNNER_TEMP/ExportOptions.plist
+          echo "$(<"EXPORT_OPTS_PATH")"
           xcodebuild -exportArchive -archivePath $GITHUB_WORKSPACE/SpaceNews.xcarchive -exportOptionsPlist $EXPORT_OPTS_PATH -exportPath $GITHUB_WORKSPACE/build
 
       - name: Upload application
