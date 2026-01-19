@@ -132,8 +132,7 @@ jobs:
         run: |          
           EXPORT_OPTS_PATH=$RUNNER_TEMP/ExportOptions.plist
           echo "$(<"$EXPORT_OPTS_PATH")"
-          xcodebuild -list
-          xcodebuild -exportArchive -archivePath $GITHUB_WORKSPACE/SpaceNews.xcarchive -exportOptionsPlist $EXPORT_OPTS_PATH -exportPath $GITHUB_WORKSPACE/build
+          xcodebuild -exportArchive -archivePath $GITHUB_WORKSPACE/SpaceNews.xcarchive -exportOptionsPlist $EXPORT_OPTS_PATH -exportPath $GITHUB_WORKSPACE/build -verbose
 
       - name: Upload application
         id: upload_step
