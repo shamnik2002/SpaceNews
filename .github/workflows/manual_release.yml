@@ -117,7 +117,7 @@ jobs:
             -configuration Release \
             -destination generic/platform=iOS  \
             -derivedDataPath $GITHUB_WORKSPACE/DerivedData \
-            -archivePath $GITHUB_WORKSPACE/archive \
+            -archivePath $GITHUB_WORKSPACE/SpaceNews.xcarchive \
           | xcbeautify
            
       - name: Upload xcresult
@@ -131,7 +131,7 @@ jobs:
       - name: Export ipa
         run: |
           EXPORT_OPTS_PATH=$RUNNER_TEMP/ExportOptions.plist
-          xcodebuild -exportArchive -archivePath $GITHUB_WORKSPACE/archive -exportOptionsPlist $EXPORT_OPTS_PATH -exportPath $GITHUB_WORKSPACE/build
+          xcodebuild -exportArchive -archivePath $GITHUB_WORKSPACE/SpaceNews.xcarchive -exportOptionsPlist $EXPORT_OPTS_PATH -exportPath $GITHUB_WORKSPACE/build
 
       - name: Upload application
         id: upload_step
