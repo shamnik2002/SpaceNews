@@ -118,6 +118,10 @@ jobs:
             -destination generic/platform=iOS  \
             -derivedDataPath $GITHUB_WORKSPACE/DerivedData \
             -archivePath $GITHUB_WORKSPACE/SpaceNews.xcarchive \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="AstroWire" \
+            DEVELOPMENT_TEAM="U5XENB9SM6" \
           | xcbeautify
            
       - name: Upload xcresult
