@@ -118,7 +118,7 @@ jobs:
             -destination generic/platform=iOS  \
             -derivedDataPath $GITHUB_WORKSPACE/DerivedData \
             -archivePath $GITHUB_WORKSPACE/SpaceNews.xcarchive \
-            -verbose
+            -verbose \
           | xcbeautify
            
       - name: Upload xcresult
