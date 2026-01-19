@@ -143,7 +143,7 @@ jobs:
           APPSTORE_ISSUER_ID: ${{ secrets.ISSUER_ID }}
         run: |
           mkdir -p ./private_keys
-          echo -n "$API_KEY_BASE64" | base64 --decode > "./private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8
+          echo -n "$API_KEY_BASE64" | base64 --decode > "./private_keys/AuthKey_${{ secrets.APPSTORE_KEY_ID }}.p8"
           xcrun altool --validate-app -f $GITHUB_WORKSPACE/build/SpaceNews.ipa -t ios --apiKey ${{ secrets.APPSTORE_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
           xcrun altool --upload-app -f $GITHUB_WORKSPACE/build/SpaceNews.ipa -t ios --apiKey ${{ secrets.APPSTORE_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
 
