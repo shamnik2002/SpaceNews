@@ -1,0 +1,55 @@
+# This is a basic workflow that is manually triggered
+
+name: Code Freeze
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      release_version:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: "Release version (e.g. 1.2.0)"
+        # Input has to be provided for the workflow to run
+        required: true
+        # The data type of the input
+        type: string
+
+jobs:
+  release:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout develop
+        uses: actions/checkout@v4
+
+      - name: Create release branch
+        run: |
+          RELEASE_BRANCH="release/${{ inputs.release_version }}"
+          git checkout -b "$RELEASE_BRANCH"
+
+
+      - name: Update iOS version and build number
+        run: |
+          INFO_PLIST="SpaceNews/Info.plist"
+          BUILD_NUMBER=$GITHUB_RUN_NUMBER
+    
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${{ inputs.release_version }}" "$INFO_PLIST"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$INFO_PLIST"
+
+          echo "Updated Info.plist:"
+          /usr/libexec/PlistBuddy -c "Print" "$INFO_PLIST"
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          BUILD_NUMBER=$GITHUB_RUN_NUMBER
+          
+          git add .
+          git commit -m "chore: cut release ${{ inputs.release_version }} ($BUILD_NUMBER)"
+
+      - name: Push release branch
+        run: |
+          git push origin HEAD
