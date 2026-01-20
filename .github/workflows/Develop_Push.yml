@@ -1,9 +1,9 @@
-name: Main_Push
+name: Develop Merge
 
 on:
   push:
     branches:
-      - main
+      - develop
 
 
 jobs:
