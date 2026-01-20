@@ -8,11 +8,9 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      name:
+      release_branch:
         # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
+        description: 'Select Release branch (e.g. release/1.2.0)'
         # Input has to be provided for the workflow to run
         required: true
         # The data type of the input
