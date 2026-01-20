@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB07BCB12F20439F00CA9616 /* release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DB07BCB02F20439F00CA9616 /* release.xcconfig */; };
+		DB07BCB32F2043B100CA9616 /* debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DB07BCB22F2043B100CA9616 /* debug.xcconfig */; };
 		DB2C34392E9AB557005AC81B /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB2C34382E9AB557005AC81B /* SDWebImage */; };
 		DB2C343C2E9AB65B005AC81B /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = DB2C343B2E9AB65B005AC81B /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
@@ -29,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB07BCB02F20439F00CA9616 /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
+		DB07BCB22F2043B100CA9616 /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
 		DBCB731F2E9A133B00D1B8C0 /* SpaceNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCB732C2E9A133C00D1B8C0 /* SpaceNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCB73362E9A133C00D1B8C0 /* SpaceNewsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceNewsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +93,8 @@
 		DBCB73162E9A133B00D1B8C0 = {
 			isa = PBXGroup;
 			children = (
+				DB07BCB02F20439F00CA9616 /* release.xcconfig */,
+				DB07BCB22F2043B100CA9616 /* debug.xcconfig */,
 				DBCB73212E9A133B00D1B8C0 /* SpaceNews */,
 				DBCB732F2E9A133C00D1B8C0 /* SpaceNewsTests */,
 				DBCB73392E9A133C00D1B8C0 /* SpaceNewsUITests */,
@@ -230,6 +236,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB07BCB12F20439F00CA9616 /* release.xcconfig in Resources */,
+				DB07BCB32F2043B100CA9616 /* debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +297,7 @@
 /* Begin XCBuildConfiguration section */
 		DBCB733E2E9A133C00D1B8C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB07BCB22F2043B100CA9616 /* debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -352,6 +361,7 @@
 		};
 		DBCB733F2E9A133C00D1B8C0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB07BCB02F20439F00CA9616 /* release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -408,13 +418,14 @@
 		};
 		DBCB73412E9A133C00D1B8C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB07BCB22F2043B100CA9616 /* debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development: Shamal nikam (6FFZUF34HP)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Shamal nikam (6FFZUF34HP)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U5XENB9SM6;
 				ENABLE_PREVIEWS = YES;
@@ -429,7 +440,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shamal.SpaceNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -446,13 +457,14 @@
 		};
 		DBCB73422E9A133C00D1B8C0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB07BCB02F20439F00CA9616 /* release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shamal nikam (U5XENB9SM6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shamal nikam (U5XENB9SM6)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "$(CURRENT_PROJECT_VERSION)";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U5XENB9SM6;
 				ENABLE_PREVIEWS = YES;
@@ -467,7 +479,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shamal.SpaceNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
