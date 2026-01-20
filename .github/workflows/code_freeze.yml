@@ -32,24 +32,14 @@ jobs:
 
       - name: Update iOS version and build number
         run: |
-          INFO_PLIST="SpaceNews/Info.plist"
           BUILD_NUMBER=$GITHUB_RUN_NUMBER
-    
-          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${{ inputs.release_version }}" "$INFO_PLIST"
-          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$INFO_PLIST"
+          MARKETING_VERSION=${{ inputs.release_version }}          
+          pwd
+          sed -i '' \
+            -e "s/^MARKETING_VERSION = .*/MARKETING_VERSION = $MARKETING_VERSION/" \
+            -e "s/^CURRENT_PROJECT_VERSION = .*/CURRENT_PROJECT_VERSION = $BUILD_NUMBER/" \
+            release.xcconfig
 
-          echo "Updated Info.plist:"
-          /usr/libexec/PlistBuddy -c "Print" "$INFO_PLIST"
-
-      - name: Commit version bump
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          BUILD_NUMBER=$GITHUB_RUN_NUMBER
-          
-          git add .
-          git commit -m "chore: cut release ${{ inputs.release_version }} ($BUILD_NUMBER)"
-
-      - name: Push release branch
-        run: |
-          git push origin HEAD
+          echo "Build number and version updated"
+          echo "$(<"release.xcconfig")"
+     
