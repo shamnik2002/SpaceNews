@@ -32,9 +32,13 @@ jobs:
 
       - name: Update iOS version and build number
         run: |
+          pwd
+          ls
+          echo "$(<"release.xcconfig")"
+
           BUILD_NUMBER=$GITHUB_RUN_NUMBER
           MARKETING_VERSION=${{ inputs.release_version }}          
-          pwd
+          
           sed -i '' \
             -e "s/^MARKETING_VERSION = .*/MARKETING_VERSION = $MARKETING_VERSION/" \
             -e "s/^CURRENT_PROJECT_VERSION = .*/CURRENT_PROJECT_VERSION = $BUILD_NUMBER/" \
