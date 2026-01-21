@@ -34,6 +34,7 @@ jobs:
         run: |
           pwd
           ls
+          cd SpaceNews
           echo "$(<"release.xcconfig")"
 
           BUILD_NUMBER=$GITHUB_RUN_NUMBER
