@@ -19,7 +19,9 @@ on:
 jobs:
   release:
     runs-on: macos-latest
-
+    permissions:
+      contents: write
+      
     steps:
       - name: Checkout develop
         uses: actions/checkout@v4
