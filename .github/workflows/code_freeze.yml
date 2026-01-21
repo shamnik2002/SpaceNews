@@ -29,8 +29,7 @@ jobs:
           RELEASE_BRANCH="release/${{ inputs.release_version }}"
           git checkout -b "$RELEASE_BRANCH"
 
-
-      - name: Update iOS version and build number
+      - name: Update iOS App version and build number
         run: |
           pwd
           ls
@@ -47,4 +46,16 @@ jobs:
 
           echo "Build number and version updated"
           echo "$(<"release.xcconfig")"
-     
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          BUILD_NUMBER=$GITHUB_RUN_NUMBER
+          
+          git add .
+          git commit -m "chore: cut release ${{ inputs.release_version }} ($BUILD_NUMBER)"
+
+      - name: Push release branch
+        run: |
+          git push origin HEAD
