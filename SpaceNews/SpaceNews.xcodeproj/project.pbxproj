@@ -33,6 +33,7 @@
 /* Begin PBXFileReference section */
 		DB07BCB02F20439F00CA9616 /* release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = release.xcconfig; sourceTree = "<group>"; };
 		DB07BCB22F2043B100CA9616 /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
+		DB07BF8A2F21D0D100CA9616 /* SpaceNews.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SpaceNews.xctestplan; sourceTree = "<group>"; };
 		DBCB731F2E9A133B00D1B8C0 /* SpaceNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCB732C2E9A133C00D1B8C0 /* SpaceNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCB73362E9A133C00D1B8C0 /* SpaceNewsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceNewsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +94,7 @@
 		DBCB73162E9A133B00D1B8C0 = {
 			isa = PBXGroup;
 			children = (
+				DB07BF8A2F21D0D100CA9616 /* SpaceNews.xctestplan */,
 				DB07BCB02F20439F00CA9616 /* release.xcconfig */,
 				DB07BCB22F2043B100CA9616 /* debug.xcconfig */,
 				DBCB73212E9A133B00D1B8C0 /* SpaceNews */,
